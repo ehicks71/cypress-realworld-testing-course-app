@@ -8,9 +8,8 @@ describe('User Journey', () => {
   });
 
   context('Completing courses found on the homepage', () => {
-
     // Iterate over each course.
-    aCourses.forEach((oCourse: {title: string, slug: string, lessons: {}[] }, iCourseIndex) => {
+    aCourses.forEach((oCourse: {title: string, slug: string, lessons: {}[] }, iCourseIndex: number) => {
       it(`user can find course "${oCourse.title}" on the home page and complete the course lessons`, () => {
 
         // Click on the course link based on the lesson index
