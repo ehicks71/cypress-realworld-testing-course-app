@@ -1,4 +1,7 @@
 // @ts-ignore
+
+import aCourses from '../fixtures/courses.json';
+
 describe('Home page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000');
@@ -18,29 +21,15 @@ describe('Home page', () => {
   });
 
   context('Course section', () => {
-    it('Course: Testing Your First Next.js Application', () => {
-      cy.getByData('course-0')
-        .find('a')
-        .contains('Get started')
-        .click();
-      cy.location('pathname')
-        .should('equal', '/testing-your-first-application');
-    });
-
-    it('Course: Testing Foundations', () => {
-      cy.getByData('course-1')
-        .find('a')
-        .contains('Get started')
-        .click();
-      cy.location('pathname').should('equal', '/testing-foundations');
-    });
-
-    it('Course: Cypress Fundamentals', () => {
-      cy.getByData('course-2')
-        .find('a')
-        .contains('Get started')
-        .click();
-      cy.location('pathname').should('equal', '/cypress-fundamentals');
+    aCourses.forEach((oCourse: {title: string, slug: string, lessons: {}[]}, iCourseIndex: number) => {
+      it(`Course: "${oCourse.title}"`, () => {
+        cy.getByData(`course-${iCourseIndex}`)
+          .find('a')
+          .contains('Get started')
+          .click();
+        cy.location('pathname')
+          .should('equal', `/${oCourse.slug}`);
+      });
     });
   });
 });
